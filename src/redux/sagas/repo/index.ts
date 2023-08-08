@@ -1,7 +1,6 @@
 import { all, call, put, takeLatest } from "@redux-saga/core/effects";
 import {
   ListRepositories,
-  getRepoList,
   getRepoListSuccess,
   getRepoListFailure,
 } from "../../actions";
@@ -12,15 +11,15 @@ let repositories: ListRepositories[];
 const getListRepo = async (searchTerm: string) => {
   try {
     const response = await api.get(`${searchTerm}&per_page=10`);
-    repositories = response.data;
+
+    repositories = response.data.items;
     return true;
   } catch (error) {
     return false;
-    throw error;
   }
 };
 
-export function* repositoriesData(action: { type: string; payload: string }) {
+export function* repositoriesData(action: { type: string; payload: any }) {
   try {
     yield call(getListRepo, action.payload);
     yield put(getRepoListSuccess(repositories));

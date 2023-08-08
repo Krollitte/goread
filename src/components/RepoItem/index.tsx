@@ -13,26 +13,37 @@ import {
   UserNameContainer,
   UserName,
 } from "./styles";
+import { AppDispatch, ListRepositories, selectRepo } from "../../redux";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { MainProps } from "../../routes/RouteTypes";
+import { TouchableOpacityProps } from "react-native";
 
-interface Props {}
+interface Props extends TouchableOpacityProps {
+  data: ListRepositories;
+}
 
-export function RepoItem() {
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export function RepoItem({ data, ...touchableOpacityProps }: Props) {
+  const dispatch = useAppDispatch();
+  const navigation: MainProps<"RepoDetail"> = useNavigation();
+
   return (
-    <Container>
+    <Container {...touchableOpacityProps}>
       <AvatarContainer>
-        <Avatar />
+        <Avatar source={{ uri: data.owner.avatar_url }} />
       </AvatarContainer>
       <InfoContainer>
         <NameRepoAndStarNumberContainer>
           <NameRepoContainer>
-            <NameRepo>Repositorio</NameRepo>
+            <NameRepo>{data.name}</NameRepo>
           </NameRepoContainer>
           <StarNumberContainer>
-            <StarNumber>20 stars</StarNumber>
+            <StarNumber>{data.stargazers_count} stars</StarNumber>
           </StarNumberContainer>
         </NameRepoAndStarNumberContainer>
         <UserNameContainer>
-          <UserName>Krollitte</UserName>
+          <UserName>{data.owner.login}</UserName>
         </UserNameContainer>
       </InfoContainer>
     </Container>

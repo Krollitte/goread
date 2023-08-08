@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { FlatList } from "react-native";
+import { FlatList, FlatListProps } from "react-native";
+import { ListRepositories } from "../../redux";
 
 export const Container = styled.View`
   flex: 1;
@@ -11,7 +12,11 @@ export const Header = styled.View`
   margin-bottom: 40px;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const TitleContainer = styled.View`
   margin-bottom: 16px;
@@ -39,6 +44,19 @@ export const SearchInput = styled.TextInput`
   color: #3c3c4399;
   font-size: 17px;
   font-weight: 400;
+  width: 100%;
 `;
 
-export const RepoList = styled(FlatList)``;
+export const RepoList = styled(
+  FlatList as new (
+    props: FlatListProps<ListRepositories>
+  ) => FlatList<ListRepositories>
+).attrs({ showsVerticalScrollIndicator: false })`
+  width: 100%;
+`;
+
+export const LoadingIndicatorContainer = styled.View`
+  background-color: red;
+`;
+
+export const LoadingIndicator = styled.ActivityIndicator``;

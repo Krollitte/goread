@@ -27,14 +27,14 @@ export const repoReducer = (
       return {
         ...state,
         loading: true,
-        repoList: [...state.repoList, ...action.payload],
+        repoList: [],
         error: "",
       };
     case types.REPO_SEARCH_SUCCESS:
       return {
         ...state,
         loading: false,
-        repoList: [...state.repoList, action.payload],
+        repoList: action.payload as ListRepositories[],
         error: "",
       };
     case types.REPO_SEARCH_FAILURE:
@@ -42,6 +42,12 @@ export const repoReducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case types.REPO_SELECT:
+      return {
+        ...state,
+        selectedRepo: action.payload,
       };
 
     default:

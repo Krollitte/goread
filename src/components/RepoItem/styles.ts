@@ -3,13 +3,14 @@ import styled from "styled-components/native";
 
 export const Container = styled.TouchableOpacity`
   gap: 12px;
+  width: 100%;
   flex-direction: row;
   margin-bottom: 12px;
 `;
 
 export const AvatarContainer = styled.View``;
 
-export const Avatar = styled.View`
+export const Avatar = styled.Image`
   height: 52px;
   width: 52px;
   border-radius: 26px;

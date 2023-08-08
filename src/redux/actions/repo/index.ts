@@ -8,7 +8,8 @@ export interface ListRepositories {
     login: string;
     avatar_url: string;
   };
-  stargazers_url: string;
+  html_url: string;
+  stargazers_count: string;
 }
 
 export function getRepoList(searchTerm: string): {
@@ -38,5 +39,15 @@ export function getRepoListFailure(error: string): {
   return {
     type: types.REPO_SEARCH_FAILURE,
     payload: error,
+  };
+}
+
+export function selectRepo(repo: ListRepositories): {
+  type: string;
+  payload: ListRepositories;
+} {
+  return {
+    type: types.REPO_SELECT,
+    payload: repo,
   };
 }
